@@ -1,0 +1,14 @@
+#contenedorPersonajes{
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: center;
+}
+#contenedorLibros{
+    display: flex;
+}
+#contenedorCasas{
+    display: flex;
+}
+#contenedorHechizos{
+    display: flex;
+}
