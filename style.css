@@ -1,14 +1,8 @@
-#contenedorPersonajes{
+#contenedorGeneral{
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     justify-content: center;
 }
-#contenedorLibros{
-    display: flex;
-}
-#contenedorCasas{
-    display: flex;
-}
-#contenedorHechizos{
-    display: flex;
+.card{
+    width: 20rem;
 }
