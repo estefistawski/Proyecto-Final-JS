@@ -117,7 +117,7 @@ function mostrarDatos(container, dataList, datos, category) {
         if (category === 'spells' && dataList.length != 72) {
             dataList.push(objetoActual);
         }
-        const boton = document.getElementById("${objetoActual.id}")
+        const boton = document.getElementById("btn${objetoActual.id}")
         boton.addEventListener('click', agregarFavorito(lista,objetoActual.id));
     })
     console.log(listaLibros);
@@ -160,14 +160,9 @@ function createCard(item,lista) {
           <p class="card-text">${description}</p>
         </div>
         <div class="card-body">
-        <a href="#" id="${stringCont}" class="btn btn-dark">Añadir a favoritos</a>
+        <a href="#" id="btn${stringCont}" class="btn btn-dark">Añadir a favoritos</a>
         </div>
     `;
-    lista.forEach(objeto => {
-        id=objeto.id;
-        const boton = document.getElementById("card${objeto.id}")
-        boton.addEventListener('click', agregarFavorito(lista,objeto.id))
-    });
     return card;
 }
 
