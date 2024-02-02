@@ -3,46 +3,43 @@
     padding: 0;
     box-sizing: border-box;
 }
+body{
+    background-image: url(img/posibleFondo5.jpg);
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+h1{
+    text-align: center;
+              
+}
+#txtCategorias{
+    font-size: 25px;
+    color: black ;
+    font-weight: bold;
+    padding-top: 10px;
+    -webkit-text-stroke: 0.6px rgb(159, 159, 159);
+    
+}
+
+#txtCategorias:hover{
+    background-color: rgba(128, 128, 128, 0.212);
+}
 #contenedorGeneral{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 100px;
 }
 .card{
     width: 20rem;
 }
-.contenedorCarrusel{
-    position: relative;
-    max-width: 600px;
-    margin: 10px auto;
-}
-.carrusel{
-    display: flex;
-    overflow: hidden;
-}
 
-.slide{
-    flex: 0 0 100%;
-    transition: transform 0.5s ease-in-out;
+.carousel{
+    width: 65%;
 }
-.slide img{
-    width: 100%;
-}
-.btnsCarrusel{
-    position: absolute;
-    top: 35%;
-    transform: translate(-50%);
-    border: none;
-    font-size: 25px;
-    background-color: rgba(253, 249, 249, 0);
-    opacity: 0.5;
-}
-.btnsCarrusel:hover{
-    opacity: 1;
-}
-#btnAnterior{
- left: 30px;
-}
-#btnSiguiente{
-  right: 10px;
+.contenedorCarousel{
+    display: flex;
+    justify-content: center;
+    padding-top: 22px;
 }

@@ -23,21 +23,31 @@ class Libro {
         this.portada = portada;
     }
 }
-class Casa{
-    constructor(id,nombre,emoji,fundador,animal){
-        this.id=id;
-        this.nombre=nombre;
-        this.emoji=emoji;
-        this.fundador=fundador;
-        this.animal=animal;
+class Casa {
+    constructor(id, nombre, emoji, fundador, animal) {
+        this.id = id;
+        this.nombre = nombre;
+        this.emoji = emoji;
+        this.fundador = fundador;
+        this.animal = animal;
     }
 }
-class Hechizo{
-    constructor(id,nombre,uso){
-        this.id=id;
-        this.nombre=nombre;
-        this.uso=uso;
+class Hechizo {
+    constructor(id, nombre, uso) {
+        this.id = id;
+        this.nombre = nombre;
+        this.uso = uso;
     }
+}
+function actualizarCarrusel(carrusel) {
+    carrusel.style.transform = `translateX(${-imgCero * 100}%)`;
+}
+function handleSiguienteClick(slide, carrusel) {
+    imgCero = (imgCero + 1) % slide.length;
+    actualizarCarrusel(carrusel);
+}
+function autoSlide(slide, carrusel) {
+    handleSiguienteClick(slide, carrusel);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -45,27 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
     buttons.forEach(button => {
         button.addEventListener('click', handleClick);
     });
-    const carrusel = document.querySelector('.carrusel');
-    const slide = document.querySelectorAll('.slide');
-    const btnAnterior = document.getElementById('btnAnterior');
-    const btnSiguiente = document.getElementById('btnSiguiente');
-    btnSiguiente.addEventListener('click', handleSiguienteClick);
-    btnAnterior.addEventListener('click', handleAnteriorClick);
-    function handleSiguienteClick() {
-        imgCero = (imgCero + 1) % slide.length;
-        actualizarCarrusel();
-    }
-    function handleAnteriorClick() {
-        imgCero = (imgCero - 1 + slide.length) % slide.length;
-        actualizarCarrusel();
-    }
-    function actualizarCarrusel() {
-        carrusel.style.transform = `translateX(${-imgCero * 100}%)`;
-    }
-    function autoSlide() {
-        handleSiguienteClick();
-    }
-    setInterval(autoSlide, 3000);
 });
 
 function handleClick(event) {
@@ -101,36 +90,35 @@ function convertirObjeto(item, category) {
         objetoNuevo = new Libro(String(cont), String(item.title), String(item.releaseDate), String(item.pages), String(item.cover));
     }
     if (category === 'houses') {
-        objetoNuevo = new Casa(String(cont),String(item.house),String(item.emoji),String(item.founder),String(item.animal));
+        objetoNuevo = new Casa(String(cont), String(item.house), String(item.emoji), String(item.founder), String(item.animal));
     }
     if (category === 'spells') {
-        objetoNuevo = new Hechizo(String(cont),String(item.spell),String(item.use));
+        objetoNuevo = new Hechizo(String(cont), String(item.spell), String(item.use));
     }
     return objetoNuevo;
 }
 
+
+
 function mostrarDatos(container, dataList, datos, category) {
     datos.forEach(item => {
-        const tarjeta = createCard(item);
+        const tarjeta = createCard(item,dataList);
         container.appendChild(tarjeta);
         const objetoActual = convertirObjeto(item, category);
-        if(category==='characters' && dataList.length!=25){
+        if (category === 'characters' && dataList.length != 25) {
             dataList.push(objetoActual);
         }
-        if(category==='books' && dataList.length!=8){
+        if (category === 'books' && dataList.length != 8) {
             dataList.push(objetoActual);
         }
-        if(category==='houses' && dataList.length!=4){
+        if (category === 'houses' && dataList.length != 4) {
             dataList.push(objetoActual);
         }
-        if(category==='spells' && dataList.length!=72){
+        if (category === 'spells' && dataList.length != 72) {
             dataList.push(objetoActual);
         }
-        const boton = document.getElementById('btn${objetoActual.id}')
-        boton.addEventListener('click',()=>{
-         agregarFavorito(dataList,objetoActual.id);
-      })
-
+        const boton = document.getElementById("${objetoActual.id}")
+        boton.addEventListener('click', agregarFavorito(lista,objetoActual.id));
     })
     console.log(listaLibros);
     console.log(listaPersonajes);
@@ -139,11 +127,10 @@ function mostrarDatos(container, dataList, datos, category) {
 }
 function agregarFavorito(lista, id) {
     const listaFiltrada = lista.filter((obj) => obj.id === (id));
-    favoritos.push(listaFiltrada);
-    console.log(favoritos);
+  favoritos.push(listaFiltrada);
 }
-let contador=0
-function createCard(item) {
+let contador = 0
+function createCard(item,lista) {
     const card = document.createElement("div");
     card.className = "card text-center mb-3 ";
     contador++;
@@ -165,7 +152,7 @@ function createCard(item) {
         title = item.spell;
         description = item.use;
     }
-
+    let stringCont=String(contador);
     card.innerHTML = `
         <img src="${imageUrl}" class="card-img-top" alt="${title}">
         <div class="card-body">
@@ -173,10 +160,14 @@ function createCard(item) {
           <p class="card-text">${description}</p>
         </div>
         <div class="card-body">
-        <a href="#" id="btn${contador}" class="btn btn-dark">Añadir a favoritos</a>
+        <a href="#" id="${stringCont}" class="btn btn-dark">Añadir a favoritos</a>
         </div>
     `;
-
+    lista.forEach(objeto => {
+        id=objeto.id;
+        const boton = document.getElementById("card${objeto.id}")
+        boton.addEventListener('click', agregarFavorito(lista,objeto.id))
+    });
     return card;
 }
 
