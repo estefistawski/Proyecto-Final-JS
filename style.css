@@ -4,22 +4,27 @@
     box-sizing: border-box;
 }
 body{
-    background-image: url(img/posibleFondo5.jpg);
+     background-image: url(img/fondoLiso2.webp);
     background-repeat:no-repeat;
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: fixed; 
+    background-color: rgb(216, 216, 183);
 }
 h1{
     text-align: center;
+    font-size: 65px;
+    font-family: 'Protest Revolution', sans-serif;
+    color: black;
               
 }
 #txtCategorias{
-    font-size: 25px;
+    font-size: 28px;
     color: black ;
     font-weight: bold;
     padding-top: 10px;
-    -webkit-text-stroke: 0.6px rgb(159, 159, 159);
-    
+    -webkit-text-stroke: 0.1px rgb(181, 179, 179); 
+    text-shadow: 1px 2px 14px rgb(8, 8, 8);
+    font-family: 'Protest Revolution', sans-serif;
 }
 
 #txtCategorias:hover{
@@ -29,17 +34,21 @@ h1{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 100px;
+    padding: 75px;
 }
 .card{
     width: 20rem;
 }
 
 .carousel{
-    width: 65%;
+    width: 55%;
 }
 .contenedorCarousel{
     display: flex;
     justify-content: center;
     padding-top: 22px;
+}
+#btnFavoritos{
+    font-size: 22px;
+    font-family: 'Protest Revolution', sans-serif;
 }
