@@ -54,51 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     });
 
-const personajesFav = [];
-const btnFavoritos = document.getElementById("btnFavoritos");
-btnFavoritos.addEventListener('click', () => {
-    const favoritosRecuperado = localStorage.getItem("favoritos");
-    const favoritosObjeto = JSON.parse(favoritosRecuperado);
-    const contenedorGeneral = document.getElementById('contenedorGeneral');
-    let title, description, id;
-    contenedorGeneral.innerHTML = '';
-    favoritosObjeto.forEach(obj => {
-            const tarjeta = document.createElement("div");
-            tarjeta.className = "card text-center mb-3 ";
-            if (obj.cumpleaños) {
-                // imageUrl = item.image;
-                id = obj.id;
-                title = obj.nombre;
-                description = `Casa: ${obj.casa}<br>Cumpleaños: ${obj.cumpleaños}`;
-            } else if (obj.paginas) {
-                // imageUrl = item.cover;
-                id = obj.id;
-                title = obj.nombre;
-                description = `Fecha de publicación: ${obj.fecha}<br>Páginas: ${obj.paginas}`;
-            } else if (obj.fundador) {
-                // imageUrl = `img/${item.house}.jpg`;
-                id = obj.id;
-                title = obj.nombre;
-                description = `Emoji: ${obj.emoji}<br>Fundador: ${obj.fundador}<br>Animal: ${obj.animal}`;
-            } else if (obj.uso) {
-                // imageUrl = "img/Hechizos.jpg";
-                id = obj.id;
-                title = obj.nombre;
-                description = obj.uso;
-            }
-            tarjeta.innerHTML = `
-                    <div class="card-body">
-                      <h5 class="card-title">${title}</h5>
-                      <p class="card-text">${description}</p>
-                    </div>
-                    <div class="card-body">
-                    <a href="#" id="btn${id}" class="btn btn-dark">Eliminar</a>
-                     </div>
-                    `;
-            contenedorGeneral.appendChild(tarjeta);
-        })
-    })
-
 
 function handleClick(event) {
     const category = event.target.getAttribute('value');
@@ -122,9 +77,8 @@ function fetchData(category) {
         .catch(error => console.log(error))
         .finally(() => console.log("proceso finalizo"));
 }
-// let cont = 0;
+
 function convertirObjeto(item, category) {
-    // cont++;
     let objetoNuevo
     if (category === 'characters') {
         const nombre = item.fullName;
@@ -192,7 +146,7 @@ function agregarFavorito(lista, id) {
     localStorage.setItem("favoritos", favoritosJSON);
     console.log(favoritos);
 }
-// let contador = 0
+
 function createCard(item) {
     const card = document.createElement("div");
     card.className = "card text-center mb-3 ";
@@ -215,7 +169,6 @@ function createCard(item) {
         title = item.spell;
         description = item.use;
     }
-    // let stringCont = String(contador);
     const string1 = title.substr(0, 2);
     const string2 = title.substr(-2);
     const id = (string1 + string2);
@@ -247,4 +200,49 @@ function getListByCategory(category) {
             return null;
     }
 }
+
+const personajesFav = [];
+const btnFavoritos = document.getElementById("btnFavoritos");
+btnFavoritos.addEventListener('click', () => {
+    const favoritosRecuperado = localStorage.getItem("favoritos");
+    const favoritosObjeto = JSON.parse(favoritosRecuperado);
+    const contenedorGeneral = document.getElementById('contenedorGeneral');
+    let title, description, id;
+    contenedorGeneral.innerHTML = '';
+    favoritosObjeto.forEach(obj => {
+            const tarjeta = document.createElement("div");
+            tarjeta.className = "card text-center mb-3 ";
+            if (obj.cumpleaños) {
+                // imageUrl = item.image;
+                id = obj.id;
+                title = obj.nombre;
+                description = `Casa: ${obj.casa}<br>Cumpleaños: ${obj.cumpleaños}`;
+            } else if (obj.paginas) {
+                // imageUrl = item.cover;
+                id = obj.id;
+                title = obj.nombre;
+                description = `Fecha de publicación: ${obj.fecha}<br>Páginas: ${obj.paginas}`;
+            } else if (obj.fundador) {
+                // imageUrl = `img/${item.house}.jpg`;
+                id = obj.id;
+                title = obj.nombre;
+                description = `Emoji: ${obj.emoji}<br>Fundador: ${obj.fundador}<br>Animal: ${obj.animal}`;
+            } else if (obj.uso) {
+                // imageUrl = "img/Hechizos.jpg";
+                id = obj.id;
+                title = obj.nombre;
+                description = obj.uso;
+            }
+            tarjeta.innerHTML = `
+                    <div class="card-body">
+                      <h5 class="card-title">${title}</h5>
+                      <p class="card-text">${description}</p>
+                    </div>
+                    <div class="card-body">
+                    <a href="#" id="btn${id}" class="btn btn-dark">Eliminar</a>
+                     </div>
+                    `;
+            contenedorGeneral.appendChild(tarjeta);
+        })
+    })
 

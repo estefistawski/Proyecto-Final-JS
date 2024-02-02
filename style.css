@@ -10,18 +10,21 @@ body{
     background-attachment: fixed; 
     background-color: rgb(216, 216, 183);
 }
-h1{
+/* h1{
     text-align: center;
     font-size: 65px;
     font-family: 'Protest Revolution', sans-serif;
     color: black;
-              
-}
+    font-weight: bold;
+    padding-top: 2px;
+    -webkit-text-stroke: 0.1px rgb(181, 179, 179); 
+    text-shadow: 1px 2px 14px rgb(8, 8, 8);
+} */
 #txtCategorias{
-    font-size: 28px;
+    font-size: 27px;
     color: black ;
     font-weight: bold;
-    padding-top: 10px;
+    padding-top: 4px;
     -webkit-text-stroke: 0.1px rgb(181, 179, 179); 
     text-shadow: 1px 2px 14px rgb(8, 8, 8);
     font-family: 'Protest Revolution', sans-serif;
@@ -34,7 +37,7 @@ h1{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 75px;
+    padding: 60px;
 }
 .card{
     width: 20rem;
@@ -46,9 +49,16 @@ h1{
 .contenedorCarousel{
     display: flex;
     justify-content: center;
-    padding-top: 22px;
 }
 #btnFavoritos{
-    font-size: 22px;
+    font-size: 20px;
+    font-family: 'Protest Revolution', sans-serif;
+}
+.HP{
+    font-size: 75px;
+    color: black ;
+    font-weight: bold;
+    -webkit-text-stroke: 0.1px rgb(181, 179, 179); 
+    text-shadow: 1px 2px 14px rgb(8, 8, 8);
     font-family: 'Protest Revolution', sans-serif;
 }
