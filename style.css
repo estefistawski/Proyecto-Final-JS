@@ -15,7 +15,7 @@ body{
 }
 
 #txtCategorias{
-    font-size: 27px;
+    font-size: 29px;
     color: black ;
     font-weight: bold;
     padding-top: 3px;
@@ -43,7 +43,7 @@ body{
 .contenedorCarousel{
     display: flex;
     justify-content: center;
-    padding-bottom: 50px;
+    padding-bottom:20px;
 }
 #btnFavoritos{
     font-size: 20px;
@@ -51,15 +51,15 @@ body{
     padding-top: 3px;
 }
 .HP{
-    font-size: 75px;
+    font-size: 80px;
     color: black ;
     font-weight: bold;
     -webkit-text-stroke: 0.1px rgb(181, 179, 179); 
     text-shadow: 1px 2px 14px rgb(8, 8, 8);
     font-family: 'Protest Revolution', sans-serif;
 }
-.h2Elegi{
-    font-size:40px;
+#h2Elegi{
+    font-size:45px;
     color: black ;
     font-weight: bold;
     -webkit-text-stroke: 0.1px rgb(181, 179, 179); 

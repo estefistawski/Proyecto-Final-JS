@@ -2,8 +2,7 @@ const listaPersonajes = [];
 const listaLibros = [];
 const listaCasas = [];
 const listaHechizos = [];
-let favoritos = [];
-
+let favoritos=[];
 
 let imgCero = 0;
 class Personaje {
@@ -47,11 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
     buttons.forEach(button => {
         button.addEventListener('click', handleClick);
     });
-    const favoritosRecuperado = localStorage.getItem("favoritos");
-    const favoritosObjeto = JSON.parse(favoritosRecuperado);
-    favoritosObjeto.forEach(obj => {
-        favoritos.push(obj);
-    })
 });
 
 
@@ -64,10 +58,19 @@ function handleClick(event) {
 function fetchData(category) {
     const apiUrl = `https://potterapi-fedeperin.vercel.app/es/${category}`;
     const container = document.getElementById('contenedorGeneral');
-    const dataList = getListByCategory(category);
-
+    const contenedorTitulo = document.getElementById('contenedorTitulo');
+    const contenedorCarousel=document.getElementById('contenedorCarrusel')
+    contenedorCarousel.innerHTML='';
     container.innerHTML = '';
-
+    contenedorTitulo.innerHTML='';
+    contenedorTitulo.innerHTML += `<h2 id="h2Elegi">¡ELEGÍ TUS FAVORITOS!</h2>`
+    const favoritosRecuperado = localStorage.getItem("favoritos");
+    const favoritosObjeto = JSON.parse(favoritosRecuperado);
+    favoritos=[];
+    favoritosObjeto.forEach(obj=>{
+        favoritos.push(obj);
+    })
+    const dataList = getListByCategory(category);
     fetch(apiUrl)
         .then(respuesta => respuesta.json())
         .then((datos) => {
@@ -110,8 +113,6 @@ function convertirObjeto(item, category) {
 
 
 function mostrarDatos(container, dataList, datos, category) {
-    const contenedorTitulo = document.getElementById('contenedorTitulo');
-    contenedorTitulo.innerHTML += `<h2 id="h2Elegi">¡ELEGÍ TUS FAVORITOS!</h2>`
     datos.forEach(item => {
         const tarjeta = createCard(item, dataList);
         container.appendChild(tarjeta);
@@ -131,28 +132,34 @@ function mostrarDatos(container, dataList, datos, category) {
         const boton = document.getElementById(`btn${objetoActual.id}`);
         boton.addEventListener('click', () => {
             agregarFavorito(dataList, objetoActual.id);
-            Swal.fire({
-                title: "Se ha agregado a favoritos!",
-                icon: "success"
-            });
         })
     })
 }
 function agregarFavorito(lista, id) {
-
-    const listaFiltrada = lista.filter((obj) => obj.id === (id));
+    let listaFiltrada = lista.filter((obj) => obj.id === (id));
     listaFiltrada.forEach(obj => {
-        favoritos.push(obj);
+        let favoritosFiltrados=favoritos.filter((objeto)=>objeto.id===(obj.id));
+        if(favoritosFiltrados.length===0){
+            favoritos.push(obj);
+            const favoritosJSON = JSON.stringify(favoritos);
+            localStorage.setItem("favoritos", favoritosJSON);        
+            Swal.fire({
+                title: "Se ha agregado a favoritos!",
+                icon: "success"
+            });
+        }else{
+            Swal.fire({
+                title: "Oops..",
+                text: "Ya se encuentra en favoritos",
+                icon: "error"
+              });
+        }
     })
-    const favoritosJSON = JSON.stringify(favoritos);
-    localStorage.setItem("favoritos", favoritosJSON);
-    console.log(favoritos);
 }
 
 function createCard(item) {
     const card = document.createElement("div");
     card.className = "card text-center mb-3 ";
-    // contador++;
     let imageUrl, title, description;
     if (item.image) {
         imageUrl = item.image;
@@ -205,19 +212,19 @@ function getListByCategory(category) {
 
 
 const btnFavoritos = document.getElementById("btnFavoritos");
+const contenedorTitulo = document.getElementById('contenedorTitulo');
 btnFavoritos.addEventListener('click', () => {
     mostrarFavoritos();
+    contenedorTitulo.innerHTML='';
 
 });
 
 function mostrarFavoritos() {
-    const favoritosRecuperado = localStorage.getItem("favoritos");
-    const favoritosObjeto = JSON.parse(favoritosRecuperado);
     const contenedorGeneral = document.getElementById('contenedorGeneral');
     let title, description, id;
     imageUrl = `img/imgFavoritos.jpg`;
     contenedorGeneral.innerHTML = '';
-    favoritosObjeto.forEach(obj => {
+    favoritos.forEach(obj => {
         const tarjeta = document.createElement("div");
         tarjeta.className = "card cardFavoritos text-center mb-3 ";
         if (obj.cumpleaños) {
@@ -253,18 +260,27 @@ function mostrarFavoritos() {
     favoritos.forEach(obj=>{
         const btnEliminar = document.getElementById(`btnEliminar${obj.id}`);
         btnEliminar.addEventListener('click', () => {
-           eliminarFavorito(obj.id);
             Swal.fire({
-                title: "Se ha eliminado!",
-                icon: "success"
-            });
+                title: `¿Desea eliminar ${obj.nombre} de favoritos?`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Aceptar"
+              })
+              .then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire({
+                    title: "Se ha eliminado!",
+                    icon: "success"
+                  });
+                  eliminarFavorito(obj.id);
+                }
+              });
         })
     })
 }
 function eliminarFavorito(id){
-    // const indice=favoritos.indexOf(obj);
-    // favoritos.splice(indice,1);
-    console.log(id);
     const listaFiltrada = favoritos.filter((obj) => obj.id != (id));
     favoritos=[];
     listaFiltrada.forEach(obj=>{
@@ -272,6 +288,5 @@ function eliminarFavorito(id){
     })
     const favoritosJSON = JSON.stringify(favoritos);
     localStorage.setItem("favoritos", favoritosJSON);
-    console.log(favoritos);
     mostrarFavoritos();
 }
