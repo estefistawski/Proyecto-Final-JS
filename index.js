@@ -203,7 +203,7 @@ function getListByCategory(category) {
     }
 }
 
-const personajesFav = [];
+
 const btnFavoritos = document.getElementById("btnFavoritos");
 btnFavoritos.addEventListener('click', () => {
     mostrarFavoritos();
