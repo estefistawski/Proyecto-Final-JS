@@ -3,6 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+header{
+    height: 100px;
+}
 body{
      background-image: url(img/fondoLiso2.webp);
     background-repeat:no-repeat;
@@ -10,21 +13,12 @@ body{
     background-attachment: fixed; 
     background-color: rgb(216, 216, 183);
 }
-/* h1{
-    text-align: center;
-    font-size: 65px;
-    font-family: 'Protest Revolution', sans-serif;
-    color: black;
-    font-weight: bold;
-    padding-top: 2px;
-    -webkit-text-stroke: 0.1px rgb(181, 179, 179); 
-    text-shadow: 1px 2px 14px rgb(8, 8, 8);
-} */
+
 #txtCategorias{
     font-size: 27px;
     color: black ;
     font-weight: bold;
-    padding-top: 4px;
+    padding-top: 3px;
     -webkit-text-stroke: 0.1px rgb(181, 179, 179); 
     text-shadow: 1px 2px 14px rgb(8, 8, 8);
     font-family: 'Protest Revolution', sans-serif;
@@ -37,7 +31,7 @@ body{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 60px;
+    padding: 50px;
 }
 .card{
     width: 20rem;
@@ -49,10 +43,12 @@ body{
 .contenedorCarousel{
     display: flex;
     justify-content: center;
+    padding-bottom: 50px;
 }
 #btnFavoritos{
     font-size: 20px;
     font-family: 'Protest Revolution', sans-serif;
+    padding-top: 3px;
 }
 .HP{
     font-size: 75px;
@@ -61,4 +57,25 @@ body{
     -webkit-text-stroke: 0.1px rgb(181, 179, 179); 
     text-shadow: 1px 2px 14px rgb(8, 8, 8);
     font-family: 'Protest Revolution', sans-serif;
+}
+.h2Elegi{
+    font-size:40px;
+    color: black ;
+    font-weight: bold;
+    -webkit-text-stroke: 0.1px rgb(181, 179, 179); 
+    text-shadow: 1px 2px 14px rgb(8, 8, 8);
+    font-family: 'Protest Revolution', sans-serif;
+}
+#contenedorTitulo{
+   margin-left: 15px;
+   text-align: center;
+    padding-top: 18px;
+   
+}
+.cardFavoritos{
+    width: 250px;
+}
+.btnEliminar:hover{
+    background-color: rgba(144, 1, 1, 0.825);
+    border: rgb(255, 0, 0);
 }

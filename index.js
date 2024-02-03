@@ -2,7 +2,7 @@ const listaPersonajes = [];
 const listaLibros = [];
 const listaCasas = [];
 const listaHechizos = [];
-const favoritos = [];
+let favoritos = [];
 
 
 let imgCero = 0;
@@ -50,9 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const favoritosRecuperado = localStorage.getItem("favoritos");
     const favoritosObjeto = JSON.parse(favoritosRecuperado);
     favoritosObjeto.forEach(obj => {
-            favoritos.push(obj);
-        })
-    });
+        favoritos.push(obj);
+    })
+});
 
 
 function handleClick(event) {
@@ -110,6 +110,8 @@ function convertirObjeto(item, category) {
 
 
 function mostrarDatos(container, dataList, datos, category) {
+    const contenedorTitulo = document.getElementById('contenedorTitulo');
+    contenedorTitulo.innerHTML += `<h2 id="h2Elegi">¡ELEGÍ TUS FAVORITOS!</h2>`
     datos.forEach(item => {
         const tarjeta = createCard(item, dataList);
         container.appendChild(tarjeta);
@@ -139,7 +141,7 @@ function mostrarDatos(container, dataList, datos, category) {
 function agregarFavorito(lista, id) {
 
     const listaFiltrada = lista.filter((obj) => obj.id === (id));
-    listaFiltrada.forEach(obj=>{
+    listaFiltrada.forEach(obj => {
         favoritos.push(obj);
     })
     const favoritosJSON = JSON.stringify(favoritos);
@@ -204,45 +206,72 @@ function getListByCategory(category) {
 const personajesFav = [];
 const btnFavoritos = document.getElementById("btnFavoritos");
 btnFavoritos.addEventListener('click', () => {
+    mostrarFavoritos();
+
+});
+
+function mostrarFavoritos() {
     const favoritosRecuperado = localStorage.getItem("favoritos");
     const favoritosObjeto = JSON.parse(favoritosRecuperado);
     const contenedorGeneral = document.getElementById('contenedorGeneral');
     let title, description, id;
+    imageUrl = `img/imgFavoritos.jpg`;
     contenedorGeneral.innerHTML = '';
     favoritosObjeto.forEach(obj => {
-            const tarjeta = document.createElement("div");
-            tarjeta.className = "card text-center mb-3 ";
-            if (obj.cumpleaños) {
-                // imageUrl = item.image;
-                id = obj.id;
-                title = obj.nombre;
-                description = `Casa: ${obj.casa}<br>Cumpleaños: ${obj.cumpleaños}`;
-            } else if (obj.paginas) {
-                // imageUrl = item.cover;
-                id = obj.id;
-                title = obj.nombre;
-                description = `Fecha de publicación: ${obj.fecha}<br>Páginas: ${obj.paginas}`;
-            } else if (obj.fundador) {
-                // imageUrl = `img/${item.house}.jpg`;
-                id = obj.id;
-                title = obj.nombre;
-                description = `Emoji: ${obj.emoji}<br>Fundador: ${obj.fundador}<br>Animal: ${obj.animal}`;
-            } else if (obj.uso) {
-                // imageUrl = "img/Hechizos.jpg";
-                id = obj.id;
-                title = obj.nombre;
-                description = obj.uso;
-            }
-            tarjeta.innerHTML = `
+        const tarjeta = document.createElement("div");
+        tarjeta.className = "card cardFavoritos text-center mb-3 ";
+        if (obj.cumpleaños) {
+            id = obj.id;
+            title = obj.nombre;
+            description = `Casa: ${obj.casa}<br>Cumpleaños: ${obj.cumpleaños}`;
+        } else if (obj.paginas) {
+            id = obj.id;
+            title = obj.nombre;
+            description = `Fecha de publicación: ${obj.fecha}<br>Páginas: ${obj.paginas}`;
+        } else if (obj.fundador) {
+            imageUrl = `img/imgFavoritos.jpg`;
+            id = obj.id;
+            title = obj.nombre;
+            description = `Emoji: ${obj.emoji}<br>Fundador: ${obj.fundador}<br>Animal: ${obj.animal}`;
+        } else if (obj.uso) {
+            id = obj.id;
+            title = obj.nombre;
+            description = obj.uso;
+        }
+        tarjeta.innerHTML = `
+            <img src="${imageUrl}" class="card-img-top"  alt="${title}">
                     <div class="card-body">
                       <h5 class="card-title">${title}</h5>
                       <p class="card-text">${description}</p>
                     </div>
                     <div class="card-body">
-                    <a href="#" id="btn${id}" class="btn btn-dark">Eliminar</a>
+                    <a href="#" id="btnEliminar${id}" class="btn btn-dark btnEliminar">Eliminar</a>
                      </div>
                     `;
-            contenedorGeneral.appendChild(tarjeta);
+        contenedorGeneral.appendChild(tarjeta);
+    })
+    favoritos.forEach(obj=>{
+        const btnEliminar = document.getElementById(`btnEliminar${obj.id}`);
+        btnEliminar.addEventListener('click', () => {
+           eliminarFavorito(obj.id);
+            Swal.fire({
+                title: "Se ha eliminado!",
+                icon: "success"
+            });
         })
     })
-
+}
+function eliminarFavorito(id){
+    // const indice=favoritos.indexOf(obj);
+    // favoritos.splice(indice,1);
+    console.log(id);
+    const listaFiltrada = favoritos.filter((obj) => obj.id != (id));
+    favoritos=[];
+    listaFiltrada.forEach(obj=>{
+        favoritos.push(obj);
+    })
+    const favoritosJSON = JSON.stringify(favoritos);
+    localStorage.setItem("favoritos", favoritosJSON);
+    console.log(favoritos);
+    mostrarFavoritos();
+}
