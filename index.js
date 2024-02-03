@@ -53,6 +53,13 @@ window.onload = (() => {
         mostrarFavoritos();
         contenedorCarousel.innerHTML = '';
     });
+    const hp=document.getElementById('hp');
+    hp.classList.add('animate__pulse');
+    hp.classList.add('animate__infinite')
+    setTimeout(()=>{
+        hp.classList.remove('animate__pulse');
+        hp.classList.remove('animate__infinite')
+    },3000)
 })
 
 document.addEventListener("DOMContentLoaded", function () {
